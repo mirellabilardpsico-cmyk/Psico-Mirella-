@@ -50,7 +50,7 @@ export default async function ConteudoPage() {
         </div>
       </div>
 
-      <div className="mb-8 grid grid-cols-2 gap-3">
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className={`${card} p-4`}>
           <p className="text-[12px] text-ink-faint">Planejados</p>
           <p className="text-[22px] font-semibold text-ink">{totalPlanejados}</p>

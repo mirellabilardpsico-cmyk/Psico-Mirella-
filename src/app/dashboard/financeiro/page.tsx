@@ -31,7 +31,7 @@ export default async function FinanceiroPage() {
         </Link>
       </div>
 
-      <div className="mb-8 grid grid-cols-3 gap-3">
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className={`${card} p-4`}>
           <p className="text-[12px] text-ink-faint">Recebido</p>
           <p className="text-[22px] font-semibold text-accent">

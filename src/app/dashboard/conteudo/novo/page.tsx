@@ -18,7 +18,7 @@ export default function NovoPostPage() {
         <label className={labelClass} htmlFor="titulo">Título / gancho *</label>
         <input id="titulo" name="titulo" type="text" required className={field} placeholder="Ex: Ansiedade x estresse: qual a diferença?" />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="data">Data *</label>
             <input id="data" name="data" type="date" required className={field} />

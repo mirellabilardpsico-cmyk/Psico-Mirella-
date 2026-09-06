@@ -25,7 +25,7 @@ export default async function NovoAgendamentoPage() {
           ))}
         </select>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="data">Data *</label>
             <input id="data" name="data" type="date" required className={field} />
@@ -36,7 +36,7 @@ export default async function NovoAgendamentoPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="tipo">Tipo</label>
             <select id="tipo" name="tipo" defaultValue="presencial" className={field}>

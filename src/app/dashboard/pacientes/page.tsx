@@ -26,7 +26,7 @@ export default async function PacientesPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {(pacientes ?? []).map((p) => {
           const tone = tagColor(p.id);
           return (

@@ -7,7 +7,7 @@ export default function NovoLancamentoPage() {
       <h2 className="mb-8 text-[19px] font-semibold text-ink">Novo lançamento</h2>
 
       <form action={createLancamento} className={`${card} p-6`}>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="tipo">Tipo *</label>
             <select id="tipo" name="tipo" defaultValue="receita" className={field}>
@@ -24,7 +24,7 @@ export default function NovoLancamentoPage() {
         <label className={labelClass} htmlFor="descricao">Descrição</label>
         <input id="descricao" name="descricao" className={field} />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="valor">Valor (R$) *</label>
             <input id="valor" name="valor" type="number" step="0.01" required className={field} />
@@ -35,7 +35,7 @@ export default function NovoLancamentoPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="forma_pagamento">Forma de pagamento</label>
             <select id="forma_pagamento" name="forma_pagamento" defaultValue="" className={field}>

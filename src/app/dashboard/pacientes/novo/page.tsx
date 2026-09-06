@@ -10,7 +10,7 @@ export default function NovoPacientePage() {
         <label className={labelClass} htmlFor="nome_completo">Nome completo *</label>
         <input id="nome_completo" name="nome_completo" required className={field} />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="telefone">Telefone</label>
             <input id="telefone" name="telefone" className={field} />
@@ -21,7 +21,7 @@ export default function NovoPacientePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass} htmlFor="data_nascimento">Data de nascimento</label>
             <input id="data_nascimento" name="data_nascimento" type="date" className={field} />

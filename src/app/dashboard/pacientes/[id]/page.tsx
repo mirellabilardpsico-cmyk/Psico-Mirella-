@@ -37,7 +37,7 @@ export default async function FichaPacientePage({
         {paciente.telefone ?? "sem telefone"} · {paciente.email ?? "sem email"} · {paciente.convenio}
       </p>
 
-      <div className="mb-8 grid grid-cols-2 gap-4">
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className={`${card} p-5`}>
           <h3 className="mb-3 text-[13px] font-semibold text-ink">Últimas sessões</h3>
           {(agendamentos ?? []).length === 0 && (

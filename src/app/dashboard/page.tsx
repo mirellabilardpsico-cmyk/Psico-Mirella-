@@ -45,7 +45,7 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <div className="mb-8 grid grid-cols-3 gap-4">
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
         {stats.map((s) => (
           <div key={s.label} className={`${card} p-5`}>
             <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-accent-soft text-accent-soft-ink">
