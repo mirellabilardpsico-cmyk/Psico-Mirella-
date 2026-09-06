@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { StatusSelect } from "../status-select";
 import { DeleteImagemButton } from "./delete-imagem-button";
+import { CopyLegendaButton } from "./copy-legenda-button";
 import { uploadImagens } from "../actions";
 import { card, field, buttonPrimary, buttonGhost } from "@/lib/ui";
+import { DownloadIcon } from "@/components/icons";
 
 const FORMATO_LABEL: Record<string, string> = {
   carrossel: "Carrossel",
@@ -35,10 +37,13 @@ export default async function PostDetalhePage({
 
   const imagensComUrl = await Promise.all(
     (imagens ?? []).map(async (img) => {
-      const { data } = await supabase.storage
-        .from("conteudo-imagens")
-        .createSignedUrl(img.storage_path, 3600);
-      return { ...img, url: data?.signedUrl ?? null };
+      const [{ data: view }, { data: download }] = await Promise.all([
+        supabase.storage.from("conteudo-imagens").createSignedUrl(img.storage_path, 3600),
+        supabase.storage
+          .from("conteudo-imagens")
+          .createSignedUrl(img.storage_path, 3600, { download: img.nome_arquivo ?? true }),
+      ]);
+      return { ...img, url: view?.signedUrl ?? null, downloadUrl: download?.signedUrl ?? null };
     }),
   );
 
@@ -68,12 +73,18 @@ export default async function PostDetalhePage({
 
       {post.legenda && (
         <div className={`${card} mb-8 p-4`}>
-          <p className="mb-1.5 text-[12px] font-medium text-ink-faint">Legenda / observações</p>
+          <div className="mb-1.5 flex items-center justify-between gap-3">
+            <p className="text-[12px] font-medium text-ink-faint">Legenda / observações</p>
+            <CopyLegendaButton legenda={post.legenda} />
+          </div>
           <p className="text-[14px] whitespace-pre-wrap text-ink">{post.legenda}</p>
         </div>
       )}
 
-      <h3 className="mb-3 text-[14px] font-semibold text-ink">Imagens</h3>
+      <h3 className="mb-1 text-[14px] font-semibold text-ink">Imagens</h3>
+      <p className="mb-3 text-[12px] text-ink-soft">
+        Prontas pra Mirella baixar e postar no Instagram — passe o mouse sobre a imagem.
+      </p>
 
       {imagensComUrl.length > 0 && (
         <div className="mb-5 grid grid-cols-3 gap-3 sm:grid-cols-4">
@@ -84,6 +95,16 @@ export default async function PostDetalhePage({
                 <img src={img.url} alt={img.nome_arquivo ?? ""} className="h-full w-full object-cover" />
               )}
               <DeleteImagemButton imagemId={img.id} postId={post.id} storagePath={img.storage_path} />
+              {img.downloadUrl && (
+                <a
+                  href={img.downloadUrl}
+                  download={img.nome_arquivo ?? undefined}
+                  title="Baixar imagem"
+                  className="absolute bottom-1.5 right-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-plum/70 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                >
+                  <DownloadIcon className="h-3.5 w-3.5" />
+                </a>
+              )}
             </div>
           ))}
         </div>

@@ -62,6 +62,16 @@ export function GridIcon({ className }: IconProps) {
   );
 }
 
+export function DownloadIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M12 3.5v11" />
+      <path d="M7.5 10.5 12 15l4.5-4.5" />
+      <path d="M4.5 17.5v1.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-1.5" />
+    </svg>
+  );
+}
+
 export function LogoutIcon({ className }: IconProps) {
   return (
     <svg {...base} className={className}>

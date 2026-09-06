@@ -48,6 +48,16 @@ export default function NovoPostPage() {
         <label className={labelClass} htmlFor="legenda">Legenda / observações</label>
         <textarea id="legenda" name="legenda" rows={4} className={field} placeholder="Gancho, ideia de legenda, CTA..." />
 
+        <label className={labelClass} htmlFor="imagens">Imagens (opcional)</label>
+        <input
+          id="imagens"
+          name="imagens"
+          type="file"
+          accept="image/*"
+          multiple
+          className={`${field} file:mr-3 file:rounded-full file:border-0 file:bg-accent-soft file:px-3 file:py-1.5 file:text-[12px] file:font-medium file:text-accent-soft-ink`}
+        />
+
         <button type="submit" className={buttonPrimary}>
           Salvar post
         </button>
