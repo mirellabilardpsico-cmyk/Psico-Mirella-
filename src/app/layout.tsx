@@ -18,6 +18,15 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Mirella",
   description: "Gestão de agenda, prontuários e financeiro para consultório de psicologia",
+  appleWebApp: {
+    capable: true,
+    title: "Mirella",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport = {
+  themeColor: "#3A1B3D",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

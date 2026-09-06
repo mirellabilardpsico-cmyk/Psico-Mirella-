@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { StatusSelect } from "./status-select";
-import { card, buttonPrimary, pageTitle } from "@/lib/ui";
+import { card, buttonPrimary, buttonSecondary, pageTitle } from "@/lib/ui";
 import { tagColor } from "@/lib/tags";
 
 const FORMATO_LABEL: Record<string, string> = {
@@ -38,9 +38,16 @@ export default async function ConteudoPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h2 className={pageTitle}>Conteúdo</h2>
-        <Link href="/dashboard/conteudo/novo" className={buttonPrimary}>
-          Novo post
-        </Link>
+        <div className="flex items-center gap-2.5">
+          {/* download de arquivo — não é navegação entre páginas, então <a> é intencional aqui */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/dashboard/conteudo/export" className={buttonSecondary}>
+            Exportar CSV
+          </a>
+          <Link href="/dashboard/conteudo/novo" className={buttonPrimary}>
+            Novo post
+          </Link>
+        </div>
       </div>
 
       <div className="mb-8 grid grid-cols-2 gap-3">
@@ -72,8 +79,8 @@ export default async function ConteudoPage() {
                   className="flex items-center justify-between rounded-2xl border border-border bg-surface py-3 pr-4 shadow-[var(--shadow-card)]"
                   style={{ borderLeft: `4px solid ${tone.bar}` }}
                 >
-                  <div className="ml-3.5">
-                    <p className="text-[13px] font-semibold text-ink">
+                  <Link href={`/dashboard/conteudo/${p.id}`} className="ml-3.5 min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-semibold text-ink hover:text-accent">
                       {new Date(`${p.data}T00:00:00`).toLocaleDateString("pt-BR", {
                         day: "2-digit",
                         weekday: "short",
@@ -84,7 +91,7 @@ export default async function ConteudoPage() {
                       {FORMATO_LABEL[p.formato] ?? p.formato}
                       {p.pilar ? ` · ${p.pilar}` : ""}
                     </p>
-                  </div>
+                  </Link>
                   <StatusSelect id={p.id} status={p.status} />
                 </div>
               );
