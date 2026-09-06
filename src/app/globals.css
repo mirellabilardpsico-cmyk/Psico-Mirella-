@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* fundo */
+  --paper: #f6f1ea;
+  --surface: #ffffff;
+  --surface-sunken: #f2eee5;
+
+  /* texto (grafite ameixa) */
+  --ink: #2e1830;
+  --ink-soft: #736776;
+  --ink-faint: #a99cab;
+
+  /* ameixa profundo — marca, gradientes */
+  --plum: #3a1b3d;
+  --plum-light: #6b4770;
+  --plum-soft: #4a2a4d;
+
+  /* terracota cobre — acento de ação */
+  --accent: #bd7c4f;
+  --accent-hover: #a86a41;
+  --accent-soft: #f1e2d3;
+  --accent-soft-ink: #8a5a37;
+
+  /* lilás bruma — apoio */
+  --mist: #b9a7be;
+  --mist-soft: #efe9f0;
+
+  --border: #e9e1ee;
+  --border-soft: #f1e8f2;
+  --danger: #9c4a3c;
+  --danger-soft: #f1e0da;
+
+  --shadow-card: 0 1px 2px rgba(58, 27, 61, 0.04), 0 12px 28px -14px rgba(58, 27, 61, 0.18);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-plum: var(--plum);
+  --color-plum-light: var(--plum-light);
+  --color-plum-soft: var(--plum-soft);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-ink: var(--accent-soft-ink);
+  --color-mist: var(--mist);
+  --color-mist-soft: var(--mist-soft);
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-familjen);
+  --font-sans: var(--font-poppins);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.mesh-bg {
+  background:
+    radial-gradient(60rem 40rem at 90% -10%, rgba(189, 124, 79, 0.16), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 20%, rgba(185, 167, 190, 0.35), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, rgba(58, 27, 61, 0.08), transparent 60%),
+    var(--paper);
+}
+
+.gradient-plum {
+  background: linear-gradient(100deg, var(--plum) 0%, var(--plum-light) 55%, var(--accent) 130%);
 }
