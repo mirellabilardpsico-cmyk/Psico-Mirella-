@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { MarkPagoButton } from "./mark-pago-button";
+import { DeleteLancamentoButton } from "./delete-lancamento-button";
 import { card, badge, buttonPrimary, pageTitle } from "@/lib/ui";
+import { EditIcon } from "@/components/icons";
 
 export default async function FinanceiroPage() {
   const supabase = await createClient();
@@ -74,9 +76,17 @@ export default async function FinanceiroPage() {
                 {Number(l.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <span className={badge(statTone(l.status))}>{l.status}</span>
               {l.status !== "pago" && l.tipo === "receita" && <MarkPagoButton id={l.id} />}
+              <Link
+                href={`/dashboard/financeiro/${l.id}/editar`}
+                title="Editar lançamento"
+                className="flex h-7 w-7 items-center justify-center rounded-full text-ink-faint transition-colors hover:bg-surface-sunken hover:text-ink"
+              >
+                <EditIcon className="h-4 w-4" />
+              </Link>
+              <DeleteLancamentoButton id={l.id} />
             </div>
           </div>
         ))}

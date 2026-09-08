@@ -3,10 +3,11 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { StatusSelect } from "../status-select";
 import { DeleteImagemButton } from "./delete-imagem-button";
+import { DeletePostButton } from "./delete-post-button";
 import { CopyLegendaButton } from "./copy-legenda-button";
 import { uploadImagens } from "../actions";
 import { card, field, buttonPrimary, buttonGhost } from "@/lib/ui";
-import { DownloadIcon } from "@/components/icons";
+import { DownloadIcon, EditIcon } from "@/components/icons";
 
 const FORMATO_LABEL: Record<string, string> = {
   carrossel: "Carrossel",
@@ -68,7 +69,14 @@ export default async function PostDetalhePage({
             {post.pilar ? ` · ${post.pilar}` : ""}
           </p>
         </div>
-        <StatusSelect id={post.id} status={post.status} />
+        <div className="flex flex-wrap items-center gap-2">
+          <Link href={`/dashboard/conteudo/${post.id}/editar`} className={buttonGhost}>
+            <EditIcon className="h-3.5 w-3.5" />
+            Editar
+          </Link>
+          <StatusSelect id={post.id} status={post.status} />
+          <DeletePostButton id={post.id} />
+        </div>
       </div>
 
       {post.legenda && (

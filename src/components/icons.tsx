@@ -81,3 +81,23 @@ export function LogoutIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function EditIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M14.5 4.5 19.5 9.5 8 21H3v-5Z" />
+      <path d="M12.5 6.5l5 5" />
+    </svg>
+  );
+}
+
+export function TrashIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M4.5 7h15" />
+      <path d="M9 7V5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5v2" />
+      <path d="M6.5 7 7.3 19a2 2 0 0 0 2 1.9h5.4a2 2 0 0 0 2-1.9L17.5 7" />
+      <path d="M10.25 11v6M13.75 11v6" />
+    </svg>
+  );
+}

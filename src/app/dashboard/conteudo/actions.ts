@@ -68,6 +68,47 @@ export async function createPost(formData: FormData) {
   redirect("/dashboard/conteudo");
 }
 
+export async function updatePost(id: string, formData: FormData) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("conteudo_posts")
+    .update({
+      data: String(formData.get("data") ?? ""),
+      formato: String(formData.get("formato") ?? "carrossel"),
+      pilar: String(formData.get("pilar") ?? "") || null,
+      titulo: String(formData.get("titulo") ?? ""),
+      legenda: String(formData.get("legenda") ?? "") || null,
+    })
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/dashboard/conteudo");
+  revalidatePath(`/dashboard/conteudo/${id}`);
+  redirect(`/dashboard/conteudo/${id}`);
+}
+
+export async function deletePost(id: string) {
+  const supabase = await createClient();
+
+  const { data: imagens } = await supabase
+    .from("conteudo_imagens")
+    .select("storage_path")
+    .eq("post_id", id);
+
+  const paths = (imagens ?? []).map((i) => i.storage_path).filter(Boolean);
+  if (paths.length > 0) {
+    await supabase.storage.from("conteudo-imagens").remove(paths);
+  }
+
+  const { error } = await supabase.from("conteudo_posts").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/dashboard/conteudo");
+  redirect("/dashboard/conteudo");
+}
+
 export async function updatePostStatus(id: string, status: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("conteudo_posts").update({ status }).eq("id", id);

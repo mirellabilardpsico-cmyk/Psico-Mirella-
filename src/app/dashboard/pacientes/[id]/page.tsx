@@ -1,7 +1,10 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { addEvolucao } from "../actions";
-import { card, field, buttonPrimary } from "@/lib/ui";
+import { DeletePacienteButton } from "./delete-paciente-button";
+import { card, field, buttonPrimary, buttonGhost } from "@/lib/ui";
+import { EditIcon } from "@/components/icons";
 
 export default async function FichaPacientePage({
   params,
@@ -32,7 +35,16 @@ export default async function FichaPacientePage({
 
   return (
     <div className="max-w-3xl">
-      <h2 className="mb-1 text-[19px] font-semibold text-ink">{paciente.nome_completo}</h2>
+      <div className="mb-1 flex flex-wrap items-start justify-between gap-3">
+        <h2 className="text-[19px] font-semibold text-ink">{paciente.nome_completo}</h2>
+        <div className="flex items-center gap-2">
+          <Link href={`/dashboard/pacientes/${paciente.id}/editar`} className={buttonGhost}>
+            <EditIcon className="h-3.5 w-3.5" />
+            Editar
+          </Link>
+          <DeletePacienteButton id={paciente.id} />
+        </div>
+      </div>
       <p className="mb-8 text-[14px] text-ink-soft">
         {paciente.telefone ?? "sem telefone"} · {paciente.email ?? "sem email"} · {paciente.convenio}
       </p>
