@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { StatusSelect } from "./status-select";
+import { WeekCalendar } from "./week-calendar";
 import { buttonPrimary } from "@/lib/ui";
 import { tagColor } from "@/lib/tags";
 
@@ -8,8 +9,13 @@ export default async function AgendaPage() {
   const supabase = await createClient();
   const { data: agendamentos } = await supabase
     .from("agendamentos")
-    .select("id, paciente_id, data_hora_inicio, tipo, status, valor, pacientes(nome_completo)")
+    .select("id, paciente_id, data_hora_inicio, data_hora_fim, tipo, status, valor, pacientes(nome_completo)")
     .order("data_hora_inicio", { ascending: true });
+
+  const lista = (agendamentos ?? []).map((a) => ({
+    ...a,
+    nome: (a.pacientes as unknown as { nome_completo: string } | null)?.nome_completo ?? "Paciente",
+  }));
 
   return (
     <div>
@@ -20,15 +26,18 @@ export default async function AgendaPage() {
         </Link>
       </div>
 
-      {(agendamentos ?? []).length === 0 && (
+      <WeekCalendar agendamentos={lista} />
+
+      <h3 className="mb-2 text-[14px] font-semibold text-ink">Todos os agendamentos</h3>
+
+      {lista.length === 0 && (
         <div className="rounded-2xl border border-border bg-surface p-6 text-[13px] text-ink-soft shadow-[var(--shadow-card)]">
           Nenhuma sessão agendada.
         </div>
       )}
 
       <div className="space-y-2.5">
-        {(agendamentos ?? []).map((a) => {
-          const paciente = a.pacientes as unknown as { nome_completo: string } | null;
+        {lista.map((a) => {
           const tone = tagColor(a.paciente_id);
           return (
             <div
@@ -42,7 +51,7 @@ export default async function AgendaPage() {
                     dateStyle: "short",
                     timeStyle: "short",
                   })}{" "}
-                  — {paciente?.nome_completo}
+                  — {a.nome}
                 </p>
                 <p className="text-[12px] text-ink-soft">
                   {a.tipo}
